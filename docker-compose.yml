@@ -1,0 +1,64 @@
+# Defines the version of the Docker Compose file format. '3.8' is a modern, stable version.
+version: '3.8'
+
+# The main section where we define all our services (containers).
+services:
+  # Service 1: A PostgreSQL database to act as our transactional source system.
+  postgres-source:
+    image: postgres:13-alpine # Using a specific version for reproducibility. '-alpine' is a lightweight version.
+    container_name: postgres-source-db
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=transactional_db
+    ports:
+      # Maps port 5433 on your computer (the host) to port 5432 inside the container.
+      # This prevents conflicts if you have another PostgreSQL running locally.
+      - '5433:5432'
+    volumes:
+      # This mounts our local SQL script into a special directory inside the container.
+      # PostgreSQL automatically runs any .sql files in this directory on first startup.
+      - ./etl/init_source.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d transactional_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Service 2: A MongoDB database for our unstructured/semi-structured source data.
+  mongo-source:
+    image: mongo:5.0
+    container_name: mongo-source-db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    ports:
+      - '27017:27017'
+
+  # Service 3: A second, separate PostgreSQL database to act as our Data Warehouse.
+  postgres-dwh:
+    image: postgres:13-alpine
+    container_name: data-warehouse-db
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=dwh
+    ports:
+      - '5434:5432' # Mapped to a different host port (5434).
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d dwh"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Service 4: The Redis message broker for our real-time streaming pipeline.
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis-broker
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

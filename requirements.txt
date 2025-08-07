@@ -5,3 +5,8 @@ psycopg2-binary
 pymongo
 python-dotenv
 redis
+notebook 
+matplotlib 
+seaborn
+flask
+Flask-SocketIO

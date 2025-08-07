@@ -97,3 +97,14 @@ FROM fact_transactions f
 JOIN dim_customer c ON f.customer_key = c.customer_key
 GROUP BY c.first_name
 ORDER BY total_spent DESC;
+```
+
+**2. Total Sales by Merchant Category:**
+```sql
+SELECT m.category, SUM(f.amount) as total_sales
+FROM fact_transactions f
+JOIN dim_merchant m ON f.merchant_key = m.merchant_key
+GROUP BY m.category
+ORDER BY total_sales DESC;
+```
+

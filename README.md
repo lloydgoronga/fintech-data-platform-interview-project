@@ -86,10 +86,9 @@ Follow these steps in the exact order to ensure a smooth setup.
 1.  **Clone the Repository:**
     Open your terminal, navigate to your desired directory, and run:
     ```sh
-    git clone [https://github.com/YourUsername/fintech-data-platform-interview-project.git](https://github.com/YourUsername/fintech-data-platform-interview-project.git)
+    git clone https://github.com/lloydgoronga/fintech-data-platform-interview-project.git
     cd fintech-data-platform-interview-project
     ```
-    *(Remember to replace `YourUsername` with your actual GitHub username).*
 
 2.  **Start All Backend Services:**
     This single command will start the PostgreSQL databases, MongoDB, and Redis in the background.
@@ -135,7 +134,6 @@ This process populates the data warehouse with the expanded historical dataset. 
 This component allows you to explore the cleaned and structured data in the warehouse to derive business insights.
 
 ![EDA Notebook Screenshot](./docs/eda_screenshot.png)
-*(Note: You should take a screenshot of your running notebook showing the charts and save it as `eda_screenshot.png` inside the `docs` folder for this image to appear).*
 
 * **Action:** In a terminal (with `venv` active), run the Jupyter Notebook server:
     ```sh
@@ -155,4 +153,4 @@ This is the live monitoring component of the platform. It requires two separate 
     ```sh
     python dashboard/app.py
     ```
-* **View the Result:** Open your web browser and navigate to **`http://localhost:5001`**. You will see the live dashboard with updating KPIs, charts, and fraud alerts.
+* **View the Result:** Open your web browser and navigate to **`[http://localhost:5001](http://localhost:5001)`**. You will see the live dashboard with updating KPIs, charts, and fraud alerts.

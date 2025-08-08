@@ -49,7 +49,7 @@ def listen_for_transactions():
 
                 # The real-time analytics rule for fraud detection.
                 # This is a simple rule, but in a real system, it could be a complex model.
-                if amount > 2000.00:
+                if amount > 3000.00:
                     # Use a higher logging level for alerts to make them stand out.
                     logging.warning(f"[!!! FRAUD ALERT !!!] High-value transaction detected: {transaction}")
                     # In a production system, this would trigger another action:

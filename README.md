@@ -153,4 +153,4 @@ This is the live monitoring component of the platform. It requires two separate 
     ```sh
     python dashboard/app.py
     ```
-* **View the Result:** Open your web browser and navigate to **`[http://localhost:5001](http://localhost:5001)`**. You will see the live dashboard with updating KPIs, charts, and fraud alerts.
+* **View the Result:** Open your web browser and navigate to **[http://localhost:5001](http://localhost:5001)**. You will see the live dashboard with updating KPIs, charts, and fraud alerts.
